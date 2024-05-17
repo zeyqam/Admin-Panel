@@ -1,0 +1,56 @@
+﻿@model IEnumerable<CategoryProductVM>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center">Categories</h2>
+    <div class="create-operation">
+        <a asp-action="Create" class="btn btn-success text-white btn-sm"><i class="mdi mdi-plus"></i></a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Category
+                    </th>
+                    <th>
+                        Created date
+                    </th>
+                    <th>
+                        Products count
+                    </th>
+                   
+                    <th>
+                        Operations
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="py-1">
+                            @item.CategoryName
+                        </td>
+                        <td>
+                            @item.CreatedDate
+                        </td>
+                        <td>
+                            @item.ProductCount
+                        </td>
+                        <td>
+                            <a class="btn btn-primary text-white btn-sm"><i class="mdi mdi-information-variant"></i></a>
+                            <a class="btn btn-warning text-white btn-sm"><i class="mdi mdi-grease-pencil"></i></a>
+                            <a class="btn btn-danger text-white btn-sm"><i class="mdi mdi mdi-delete"></i></a>
+                        </td>
+
+                    </tr>
+                }
+               
+            </tbody>
+        </table>
+    </div>
+</div>
+
