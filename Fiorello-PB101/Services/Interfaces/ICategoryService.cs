@@ -7,5 +7,10 @@ namespace Fiorello_PB101.Services.Interfaces
     {
         Task<IEnumerable<Category>> GetAllAsync();
         Task<IEnumerable<CategoryProductVM>> GetAllWithProductAsync();
+        Task<Category> GetByIdAsync(int id);
+        Task<bool> ExistAsync(string name);
+        Task CreateAsync(Category category);
+        Task DeleteAsync(Category category);
+        Task<CategoryDetailsVM> GetCategoryDetailsAsync(int id);
     }
 }

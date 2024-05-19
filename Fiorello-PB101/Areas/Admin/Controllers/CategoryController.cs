@@ -39,17 +39,49 @@ namespace Fiorello_PB101.Areas.Admin.Controllers
                 return View();
             }
 
-            bool existCategory=await _context.Categories.AnyAsync(m=>m.Name.Trim()==category.Name.Trim());
+            bool existCategory = await _categoryService.ExistAsync(category.Name);
             if (existCategory)
             {
                 ModelState.AddModelError("Name", "This category already exist");
                 return View();
             }
-            await _context.Categories.AddAsync(new Category { Name=category.Name});
-            await _context.SaveChangesAsync();
+            await _categoryService.CreateAsync(new Category { Name = category.Name });
             return RedirectToAction(nameof(Index));
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id is null)
+            {
+                return BadRequest();
+            }
+            var category = await _categoryService.GetByIdAsync((int)id);
+            if (category is null)
+            {
+                return NotFound();
+            }
+            await _categoryService.DeleteAsync(category);
+            return RedirectToAction(nameof(Index));
 
+        }
+        [HttpGet]
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id==null)
+            {
+                return BadRequest();
+            }
+
+            var categoryDetails= await _categoryService.GetCategoryDetailsAsync((int) id);
+            if (categoryDetails is null)
+            {
+                return NotFound();
+
+
+            }
+            return View(categoryDetails);  
+        }
 
     }
 }

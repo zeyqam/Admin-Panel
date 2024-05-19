@@ -22,6 +22,10 @@ namespace Fiorello_PB101.Controllers
             {
                 return NotFound();
             }
+            if (id==null)
+            {
+                return BadRequest();
+            }
             return View(blog);
         }
     }
